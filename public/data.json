@@ -1,0 +1,26 @@
+[
+  {
+    "question": "which city is the capital of Israel?",
+    "answers": ["Tel-Aviv", "Jerusalem", "Haifa", "Hod-Hasharon"],
+    "correctAns": "Jerusalem",
+    "insertedValue": ""
+  },
+  {
+    "question": "which city is the capital of France?",
+    "answers": ["Paris", "Jerusalem", "Haifa", "Hod-Hasharon"],
+    "correctAns": "Paris",
+    "insertedValue": ""
+  },
+  {
+    "question": "which city is the capital of Spain?",
+    "answers": ["Madrid", "Barcelona", "Haifa", "Hod-Hasharon"],
+    "correctAns": "Madrid",
+    "insertedValue": ""
+  },
+  {
+    "question": "which city is the capital of Italy?",
+    "answers": ["Rome", "Jerusalem", "Haifa", "Hod-Hasharon"],
+    "correctAns": "Rome",
+    "insertedValue": ""
+  }
+]
