@@ -42,16 +42,11 @@ class App extends React.Component {
 
     answeredQuestion = () => {
         let {grade, currentQuestion, questions, clicked, numOfQuestions, gameOver} = this.state;
-        if (questions[currentQuestion].correctAns === clicked) { //adding 25 point for correct answer
+        if (questions[currentQuestion].correctAns === questions[currentQuestion].insertedValue) { //adding 25 point for correct answer
             debugger
             grade = grade + 25;
         }
-        questions[currentQuestion] = {
-            question: questions[currentQuestion].question,
-            answers: questions[currentQuestion].answers,
-            correctAns: questions[currentQuestion].correctAns,
-            insertedValue: clicked
-        }
+
         currentQuestion = currentQuestion + 1;
         if (currentQuestion === numOfQuestions) {
             currentQuestion = 0;
@@ -62,15 +57,12 @@ class App extends React.Component {
     clickedValue = (e) => {
         const {questions, currentQuestion} = this.state
         const x = e.target.value;
-debugger
         questions[currentQuestion].insertedValue=e.target.value
-        this.setState({questions: JSON.parse(JSON.stringify(questions))})
+        debugger
+        this.setState({questions})
 }
-
-//value={questions[currentQuestion].insertedValue ?  questions[currentQuestion].insertedValue : "0"}
     render() {
         const {questions, grade, currentQuestion, numOfQuestions, gameOver, clicked} = this.state
-
         debugger
         return (
             <div className='App'>
