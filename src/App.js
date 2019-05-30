@@ -59,6 +59,13 @@ class App extends React.Component {
         }
         this.setState({questions, grade, currentQuestion, gameOver})
     }
+    clickedValue = (e) => {
+        const {questions, currentQuestion} = this.state
+        const x = e.target.value;
+debugger
+        questions[currentQuestion].insertedValue=e.target.value
+        this.setState({questions: JSON.parse(JSON.stringify(questions))})
+}
 
 //value={questions[currentQuestion].insertedValue ?  questions[currentQuestion].insertedValue : "0"}
     render() {
@@ -70,17 +77,17 @@ class App extends React.Component {
                 <h1 className='knockout'>Comm</h1>
                 {questions[currentQuestion] && <form action="/action_page.php">
                     {<h3 className='questionDisplay'>{questions[currentQuestion].question}</h3>}
-                    <label><input type="radio" value={this.state.clicked} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[0]}
-                                  onClick={() => this.setState({clicked: questions[currentQuestion].answers[0]})} onClick={() => this.setState({clicked: questions[currentQuestion].answers[0]})}/>{questions[currentQuestion].answers[0]}
+                    <label><input type="radio" value={questions[currentQuestion].answers[0]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[0]}
+                                  onClick={(e) => this.clickedValue(e)} />{questions[currentQuestion].answers[0]}
                     </label>
-                    <label> <input type="radio" value={this.state.clicked} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[1]}
-                                   onClick={() => this.setState({clicked: questions[currentQuestion].answers[1]})}/> {questions[currentQuestion].answers[1]}
+                    <label> <input type="radio" value={questions[currentQuestion].answers[1]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[1]}
+                                   onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[1]}
                     </label>
-                    <label><input type="radio" value={this.state.clicked} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[2]}
-                                  onClick={() => this.setState({clicked: questions[currentQuestion].answers[2]})}/> {questions[currentQuestion].answers[2]}
+                    <label><input type="radio" value={questions[currentQuestion].answers[2]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[2]}
+                                  onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[2]}
                     </label>
-                    <label> <input type="radio" value={this.state.clicked} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[3]}
-                                   onClick={() => this.setState({clicked: questions[currentQuestion].answers[3]})}/> {questions[currentQuestion].answers[3]}
+                    <label> <input type="radio" value={questions[currentQuestion].answers[3]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[3]}
+                                   onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[3]}
                     </label>
                 </form>}
 
