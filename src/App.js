@@ -36,9 +36,10 @@ class App extends React.Component {
                 this.setState({questions: x})
             })
     }
-    previousQuestion=()=>{
-let {grade, currentQuestion, questions} = this.state
-        currentQuestion = currentQuestion-1;
+
+    previousQuestion = () => {
+        let {grade, currentQuestion, questions} = this.state
+        currentQuestion = currentQuestion - 1;
         if (questions[currentQuestion].insertedValue === questions[currentQuestion].correctAns) {
             grade = grade - 25;
         }
@@ -54,7 +55,7 @@ let {grade, currentQuestion, questions} = this.state
             grade = grade + 25;
         }
         currentQuestion = currentQuestion + 1;
-        if (currentQuestion === numOfQuestions) {
+        if (currentQuestion === numOfQuestions) {//case its the end of the game
             currentQuestion = 0;
             gameOver = true;
         }
@@ -74,27 +75,19 @@ let {grade, currentQuestion, questions} = this.state
                 <h1 className='knockout'>CommitIT</h1>
                 {questions[currentQuestion] && <form action="insertDetails">
                     {<h3 className='questionDisplay'>{questions[currentQuestion].question}</h3>}
-                    <label><input type="radio" value={questions[currentQuestion].answers[0]}
-                                  checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[0]}
-                                  onClick={(e) => this.clickedValue(e)}/>{questions[currentQuestion].answers[0]}
-                    </label>
-                    <label> <input type="radio" value={questions[currentQuestion].answers[1]}
-                                   checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[1]}
-                                   onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[1]}
-                    </label>
-                    <label><input type="radio" value={questions[currentQuestion].answers[2]}
-                                  checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[2]}
-                                  onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[2]}
-                    </label>
-                    <label> <input type="radio" value={questions[currentQuestion].answers[3]}
-                                   checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[3]}
-                                   onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[3]}
-                    </label>
+                    {questions[currentQuestion].answers.map((optionAns, index) => {
+                        return <label><input type="radio" value={questions[currentQuestion].answers[index]}
+                                             checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[index]}
+                                             onClick={(e) => this.clickedValue(e)}/>{questions[currentQuestion].answers[index]}
+                        </label>
+                    })}
                 </form>}
                 <div className='questions'>
                        <span className='buttons'><Button variant="contained" color="secondary"
                                                          disabled={currentQuestion === 0 ? true : false}
-                                                         onClick={() => {this.previousQuestion()}}>
+                                                         onClick={() => {
+                                                             this.previousQuestion()
+                                                         }}>
                             Previous
                         </Button></span>
                     <span className='buttons'><Button variant="contained" color="secondary"
