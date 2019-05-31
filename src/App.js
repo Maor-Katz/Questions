@@ -12,8 +12,6 @@ class App extends React.Component {
             grade: 0,
             currentQuestion: 0,
             gameOver: false,
-            value: ''
-
         }
         this.customStyles = {
             content: {
