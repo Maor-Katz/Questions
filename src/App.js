@@ -11,9 +11,8 @@ class App extends React.Component {
             numOfQuestions: 4,
             grade: 0,
             currentQuestion: 0,
-            clicked: '',
             gameOver: false,
-            value:''
+            value: ''
 
         }
         this.customStyles = {
@@ -39,14 +38,23 @@ class App extends React.Component {
                 this.setState({questions: x})
             })
     }
+    previousQuestion=()=>{
+let {grade, currentQuestion, questions} = this.state
+        currentQuestion = currentQuestion-1;
+        if (questions[currentQuestion].insertedValue === questions[currentQuestion].correctAns) {
+            grade = grade - 25;
+        }
+        this.setState({
+            currentQuestion,
+            grade
+        })
+    }
 
     answeredQuestion = () => {
-        let {grade, currentQuestion, questions, clicked, numOfQuestions, gameOver} = this.state;
+        let {grade, currentQuestion, questions, numOfQuestions, gameOver} = this.state;
         if (questions[currentQuestion].correctAns === questions[currentQuestion].insertedValue) { //adding 25 point for correct answer
-            debugger
             grade = grade + 25;
         }
-
         currentQuestion = currentQuestion + 1;
         if (currentQuestion === numOfQuestions) {
             currentQuestion = 0;
@@ -56,38 +64,39 @@ class App extends React.Component {
     }
     clickedValue = (e) => {
         const {questions, currentQuestion} = this.state
-        const x = e.target.value;
-        questions[currentQuestion].insertedValue=e.target.value
-        debugger
+        questions[currentQuestion].insertedValue = e.target.value
         this.setState({questions})
-}
+    }
+
     render() {
-        const {questions, grade, currentQuestion, numOfQuestions, gameOver, clicked} = this.state
-        debugger
+        const {questions, numOfQuestions, gameOver} = this.state
+        let {grade, currentQuestion} = this.state
         return (
             <div className='App'>
-                <h1 className='knockout'>Comm</h1>
-                {questions[currentQuestion] && <form action="/action_page.php">
+                <h1 className='knockout'>CommitIT</h1>
+                {questions[currentQuestion] && <form action="insertDetails">
                     {<h3 className='questionDisplay'>{questions[currentQuestion].question}</h3>}
-                    <label><input type="radio" value={questions[currentQuestion].answers[0]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[0]}
-                                  onClick={(e) => this.clickedValue(e)} />{questions[currentQuestion].answers[0]}
+                    <label><input type="radio" value={questions[currentQuestion].answers[0]}
+                                  checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[0]}
+                                  onClick={(e) => this.clickedValue(e)}/>{questions[currentQuestion].answers[0]}
                     </label>
-                    <label> <input type="radio" value={questions[currentQuestion].answers[1]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[1]}
+                    <label> <input type="radio" value={questions[currentQuestion].answers[1]}
+                                   checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[1]}
                                    onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[1]}
                     </label>
-                    <label><input type="radio" value={questions[currentQuestion].answers[2]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[2]}
+                    <label><input type="radio" value={questions[currentQuestion].answers[2]}
+                                  checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[2]}
                                   onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[2]}
                     </label>
-                    <label> <input type="radio" value={questions[currentQuestion].answers[3]} checked={questions[currentQuestion].insertedValue===questions[currentQuestion].answers[3]}
+                    <label> <input type="radio" value={questions[currentQuestion].answers[3]}
+                                   checked={questions[currentQuestion].insertedValue === questions[currentQuestion].answers[3]}
                                    onClick={(e) => this.clickedValue(e)}/> {questions[currentQuestion].answers[3]}
                     </label>
                 </form>}
-
-
                 <div className='questions'>
                        <span className='buttons'><Button variant="contained" color="secondary"
                                                          disabled={currentQuestion === 0 ? true : false}
-                                                         onClick={() => this.setState({currentQuestion: currentQuestion - 1})}>
+                                                         onClick={() => {this.previousQuestion()}}>
                             Previous
                         </Button></span>
                     <span className='buttons'><Button variant="contained" color="secondary"
@@ -108,18 +117,15 @@ class App extends React.Component {
                                                           onClick={() => this.setState({
                                                               grade: 0,
                                                               currentQuestion: 0,
-                                                              clicked: '',
                                                               gameOver: false,
                                                           })} className='newGameButton'>
                             New Game
                         </Button></span>
-
                     </div>
                 </Modal>
             </div>
         );
     }
-
 }
 
 export default App
