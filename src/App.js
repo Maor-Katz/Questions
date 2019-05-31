@@ -61,6 +61,7 @@ class App extends React.Component {
         }
         this.setState({questions, grade, currentQuestion, gameOver})
     }
+
     clickedValue = (e) => {
         const {questions, currentQuestion} = this.state
         questions[currentQuestion].insertedValue = e.target.value
